@@ -68,6 +68,6 @@ class Iterator:
 
     def __next__(self):
         if self._index == 0:
-            return StopIteration
+            raise StopIteration
         self._index -= 1
         return self._data[self._index]
