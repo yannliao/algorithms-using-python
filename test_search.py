@@ -18,5 +18,10 @@ class TestStringMethods(unittest.TestCase):
         self.assertTrue(search.sortedLinearSearch(a, 4))
         self.assertFalse(search.sortedLinearSearch(a, 8))
 
+    def test_binarySearch(self):
+        a = [0, 1, 2, 3, 4, 5, 6, 7]
+        self.assertTrue(search.sortedLinearSearch(a, 4))
+        self.assertFalse(search.sortedLinearSearch(a, 8))
+
 if __name__ == '__main__':
     unittest.main()
