@@ -10,7 +10,9 @@ class Set:
 
     def __contains__(self, item):
         # determin weather an item is in the set. if exits return true.
-        return item in self._data
+        # return item in self._data
+        index = self._findPosition(item)
+        return index < len(self) and self._data[index] == item
 
     def __eq__(self, setB):
         # determins if two sets are equal.
@@ -23,15 +25,34 @@ class Set:
         # return an iterator for traversing the set.
         return Iterator(self._data)
 
+    def _findPosition(self, item):
+        high = len(self) - 1
+        low = 0
+        while low <= high:
+            mid = (high + low) // 2
+            if item == self._data[mid]:
+                return mid
+            elif item < self._data[mid]:
+                high = mid - 1
+            else:
+                low = mid + 1
+
+        return low
+
     def add(self, item):
         # add a new element to the set.
-        if item not in self._data:
-            self._data.append(item)
+        # if item not in self._data:
+        #     self._data.append(item)
+        if item not in self:
+            index = self._findPosition(item)
+            self._data.insert(index, item)
 
     def remove(self, item):
         # remove an element in the set.
         assert element in self, "The element must be in the set."
-        self._data.remove(item)
+        # self._data.remove(item)
+        index = self._findPosition(item)
+        self._data.pop(index)
 
     def isSubsetOf(self, setB):
         # determin this set is a subset of setB.

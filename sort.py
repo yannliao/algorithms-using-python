@@ -32,3 +32,25 @@ def insertionSort(sequence):
             sequence[j + 1] = sequence[j]
             j -= 1
         sequence[j + 1] = key
+
+
+def mergeSortedLists(listA, listB):
+    newList = list()
+    a = 0
+    b = 0
+    while a < len(listA) and b < list(b):
+        if listA[a] < listB[b]:
+            newList.append(listA[a])
+            a += 1
+        else:
+            newList.append(listB[b])
+            b += 1
+
+    while a < len(listA):
+        newList.append(listA[a])
+        a += 1
+    while b < len(listB):
+        newList.append(listB[b])
+        b += 1
+
+    return newList
