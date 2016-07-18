@@ -2,7 +2,7 @@ import unittest
 import search
 
 
-class TestStringMethods(unittest.TestCase):
+class TestSearchAlgorithms(unittest.TestCase):
     def setUp(self):
         pass
 
