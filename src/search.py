@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+"""
+    Kinds of search algorithms
+"""
+
+
 def sortedLinearSearch(theList, item):
     length = len(theList)
     for i in range(length):

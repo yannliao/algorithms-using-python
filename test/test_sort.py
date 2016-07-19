@@ -1,5 +1,12 @@
+# -*- coding: utf-8 -*-
+"""
+  test code for the sort algorithms
+"""
+
+import context
+
 import unittest
-import sort
+import src.sort as sort
 
 
 class TestSortAlgorithms(unittest.TestCase):

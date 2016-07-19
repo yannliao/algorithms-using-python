@@ -1,5 +1,12 @@
+# -*- coding: utf-8 -*-
+"""
+  test code for the search algorithms
+"""
+
+import context
+
 import unittest
-import search
+import src.search as search
 
 
 class TestSearchAlgorithms(unittest.TestCase):

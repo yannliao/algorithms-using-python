@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+"""
+    implementation of Set using list
+"""
+
+
 class Set:
     """Implementation of a set ADT using Python list"""
     def __init__(self):

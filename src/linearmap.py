@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+"""
+    implementation of map using list
+"""
+
+
 class Map:
     """docstring for Map"""
     def __init__(self):

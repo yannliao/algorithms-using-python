@@ -1,4 +1,7 @@
-# A collection of sorting algorithms using python.
+# -*- coding: utf-8 -*-
+"""
+    A collection of sorting algorithms using python.
+"""
 
 
 def bubbleSort(sequence):
