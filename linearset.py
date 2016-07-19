@@ -16,10 +16,18 @@ class Set:
 
     def __eq__(self, setB):
         # determins if two sets are equal.
+        # if len(self) != len(setB):
+        #     return False
+        # else:
+        #     return self.isSubsetOf(setB)
         if len(self) != len(setB):
             return False
         else:
-            return self.isSubsetOf(setB)
+            for i in range(len(self)):
+                if self._data[i] != setB[i]:
+                    return False
+
+            return True
 
     def __iter__(self):
         # return an iterator for traversing the set.
@@ -59,15 +67,39 @@ class Set:
         for element in self:
             if element not in setB:
                 return False
+
         return True
 
     def union(self, setB):
         # create a new set from the union this set and setB.
+        # newSet = Set()
+        # newSet._data.extend(self._data)
+        # for element in setB:
+        #     if element not in self:
+        #         newSet._data.append(element)
+        # return newSet
         newSet = Set()
-        newSet._data.extend(self._data)
-        for element in setB:
-            if element not in self:
-                newSet._data.append(element)
+        i = 0
+        j = 0
+        while i < len(self) and j < len(setB):
+            if self._data[i] < setB._data[j]:
+                newSet._date.append(self._data[i])
+                i += 1
+            elif self._data[i] > setB._data[j]:
+                newSet._date.append(setB._data[j])
+                j += 1
+            else:
+                # Only one of the two duplicates are appended.
+                newSet._date.append(setB._data[j])
+                i += 1
+                j += 1
+
+        while i < len(self._data[i]):
+            newSet._data.append(self._data[i])
+
+        while j < len(setB):
+            newSet._data.append(setB._data[j])
+
         return newSet
 
     def interset(self, setB):
