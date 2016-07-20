@@ -5,6 +5,14 @@
 
 
 def bubbleSort(sequence):
+    """
+        bubble sort re-arranges the values by iterating over the list multiple
+        times, causing larger values to bubble to the  end of the list.
+        time complexity of bubble sort is O(n^2).
+
+        most inefficient sorting algorithms due to the
+        total number of swaps required.
+    """
     n = len(sequence)
     # Perform n-1 bubble operations on the sequence
     for i in range(n - 1):
@@ -14,7 +22,27 @@ def bubbleSort(sequence):
                 sequence[j], sequence[j+1] = sequence[j+1], sequence[j]
 
 
+def bubbleSortUp(sequence):
+    """
+        bubble sort: bubble the smaller values to the top of the list.
+    """
+    n = len(sequence)
+    for i in range(n - 1, -1, -1):
+        for j in range(i, 0, -1):
+            if sequence[j] < sequence[j - 1]:
+                sequence[j - 1], sequence[j] = sequence[j], sequence[j - 1]
+
+
 def selectionSort(sequence):
+    """
+        select sort: scan through the list and select the smallest item in the
+        list then put it in a proper place.
+        time complexity: O(n^2).
+
+        The diference between the selection and bubble sorts is that
+        the selection sort reduces the number of swaps
+        required to sort the list to O(n)
+    """
     n = len(sequence)
     # Assume the ith element is the smallest.
     for i in range(n - 1):
@@ -27,6 +55,11 @@ def selectionSort(sequence):
 
 
 def insertionSort(sequence):
+    """
+        insertion sort: iterte the list from the top to the end and move the
+        key to the proper place step by step.
+        time complexity: O(n^2)
+    """
     n = len(sequence)
     for i in range(1, n):
         j = i - 1
@@ -38,6 +71,7 @@ def insertionSort(sequence):
 
 
 def mergeSortedLists(listA, listB):
+    # merge two sorted lists into one.
     newList = list()
     a = 0
     b = 0
