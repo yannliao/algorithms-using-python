@@ -1,4 +1,4 @@
-class linkList(object):
+class LinkList():
     """docstring for linkList"""
     def __init__(self):
         self._head = None
@@ -7,8 +7,14 @@ class linkList(object):
     def __len__(self):
         return self._size
 
+    def __contains__(self, target):
+        curNode = self._head
+        while curNode is not None and curNode.data != target:
+            curNode = curNode.next
+        return curNode is not None
+
     def __iter__(self):
-        _listIterator(self._head)
+        return _listIterator(self._head)
 
     def search(self, target):
         curNode = self._head
@@ -38,12 +44,12 @@ class linkList(object):
         return curNode.data
 
 
-class _listIterator(self, head):
+class _listIterator:
     def __init__(self, head):
         self.index = head
 
     def __iter__(self):
-        retrun self
+        return self
 
     def __next__(self):
         if self.index is None:
