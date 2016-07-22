@@ -18,9 +18,7 @@ class TestLinkList(unittest.TestCase):
     def test_insert(self):
         testList = LinkList()
         testList.insert('a')
-        # for element in testList:
-        #     print(element)
-        # self.assertTrue('a' in LinkList)
+        self.assertTrue('a' in testList)
 
     def test_search(self):
         testList = LinkList()
