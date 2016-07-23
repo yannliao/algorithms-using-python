@@ -10,28 +10,25 @@ from src.linkList import LinkList
 
 class TestLinkList(unittest.TestCase):
     def setUp(self):
-        pass
+        self.testList = LinkList()
 
     def tearDown(self):
-        pass
+        del self.testList
 
     def test_insert(self):
-        testList = LinkList()
-        testList.insert('a')
-        self.assertTrue('a' in testList)
+        self.testList.insert('a')
+        self.assertTrue('a' in self.testList)
 
     def test_search(self):
-        testList = LinkList()
-        testList.insert('a')
-        self.assertTrue(testList.search('a'))
+        self.testList.insert('a')
+        self.assertTrue(self.testList.search('a'))
 
     def test_delete(self):
-        testList = LinkList()
-        testList.insert('a')
-        testList.insert('b')
-        testList.delete('a')
-        self.assertFalse(testList.search('a'))
-        self.assertTrue(testList.search('b'))
+        self.testList.insert('a')
+        self.testList.insert('b')
+        self.testList.delete('a')
+        self.assertFalse(self.testList.search('a'))
+        self.assertTrue(self.testList.search('b'))
 
 
 if __name__ == '__main__':
