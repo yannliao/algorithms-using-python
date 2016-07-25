@@ -15,7 +15,7 @@ class PriorityQueue:
         return len(self.data) == 0
 
     def enqueue(self, item, priority):
-        entry = _PriorityNode(self, item, priority)
+        entry = _PriorityNode(item, priority)
         self.data.append(entry)
 
     def dequeue(self):
