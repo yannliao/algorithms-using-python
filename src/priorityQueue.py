@@ -3,6 +3,8 @@
     implementation of Priority Queue using list
 """
 
+from listQueue import Queue
+
 
 class PriorityQueue:
     def __init__(self):

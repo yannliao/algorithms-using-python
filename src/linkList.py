@@ -64,3 +64,18 @@ class listNode:
     def __init__(self, data):
         self.data = data
         self.next = None
+
+
+"""
+    doubly link list
+"""
+
+
+class DLinkList:
+    def __init__(self):
+        pass
+
+
+class DLinkNode:
+    def __init__(self):
+        pass
