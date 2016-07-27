@@ -71,11 +71,59 @@ class listNode:
 """
 
 
-class DLinkList:
+class CLinkList:
+    """docstring for linkList"""
     def __init__(self):
-        pass
+        self._listRef = None
+        self._size = 0
+
+    def traverse(self):
+        listRef = self._listRef
+        curNode = listRef
+        done = listRef is None
+        while not done:
+            curNode = curNode.next
+            print(curNode.data)
+            done = curNode is listRef
+
+    def search(self, target):
+        listRef = self._listRef
+        curNode = listRef
+        done = listRef is None
+        while not done:
+            curNode = curNode.next
+            if curNode.data == target:
+                return True
+            else:
+                done = curNode is listRef or curNode.data > target
+        return False
+
+    def insert(self, data):
+        listRef = self._listRef
+        newNode = CLinkNode(data)
+        if listRef is None:
+            listRef = newNode
+            newNode.next = newNode
+        elif data < listRef.next.data:
+            newNode.next = listRef.next
+            listRef.next = newNode
+        elif data > listRef.data:
+            newNode.next = listRef.next
+            listRef.next = newNode
+            listRef = newNode
+        else:
+            preNode = None
+            curNode = listRef
+            done = listRef is None
+            while not done:
+                predNode = curNode
+                predNode = curNode.next
+                done = curNode is listRef or curNode.data > data
+            newNode.next = curNode
+            preNode.next = newNode
 
 
-class DLinkNode:
-    def __init__(self):
-        pass
+class CLinkNode:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
