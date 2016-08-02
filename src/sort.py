@@ -103,6 +103,28 @@ def mergeSeq(left, right):
     return result
 
 
+def partition(sequence, left, right):
+    pivot = sequence[right]
+    i = left - 1
+    for j in range(left, right):
+        if sequence[j] <= pivot:
+            i += 1
+            sequence[i], sequence[j] = sequence[j], sequence[i]
+
+    sequence[i + 1], sequence[right] = sequence[right], sequence[i + 1]
+    return i + 1
+
+
+def quickSort(sequence, left, right):
+    """
+    sort the sequence using quick sort algorithm.
+    """
+    if left < right:
+        pos = partition(sequence, left, right)
+        quickSort(sequence, left, pos - 1)
+        quickSort(sequence, pos + 1, right)
+
+
 def mergeSortedLists(listA, listB):
     # merge two sorted lists into one.
     newList = list()

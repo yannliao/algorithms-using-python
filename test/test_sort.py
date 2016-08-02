@@ -38,6 +38,10 @@ class TestSortAlgorithms(unittest.TestCase):
         self.output = sort.mergeSort(self.input)
         self.assertEqual(self.correct, self.output)
 
+    def test_merge_sort(self):
+        sort.quickSort(self.input, 0, len(self.input) - 1)
+        self.assertEqual(self.correct, self.input)
+
 
 if __name__ == '__main__':
     unittest.main()
