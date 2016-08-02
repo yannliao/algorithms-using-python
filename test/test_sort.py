@@ -6,33 +6,38 @@
 import context
 
 import unittest
+import random
 import src.sort as sort
 
 
 class TestSortAlgorithms(unittest.TestCase):
     def setUp(self):
-        pass
+        self.input = list(range(10))
+        random.shuffle(self.input)
+        self.correct = list(range(10))
+        self.output = None
 
     def tearDown(self):
-        pass
+        del self.input
+        del self.correct
+        del self.output
 
     def test_bubble_sort(self):
-        a = [8, 1, 4, 3, 4, 7, 6, 5]
-        b = [1, 3, 4, 4, 5, 6, 7, 8]
-        sort.bubbleSort(a)
-        self.assertEqual(a, b)
+        sort.bubbleSort(self.input)
+        self.assertEqual(self.correct, self.input)
 
     def test_selection_sort(self):
-        a = [8, 1, 4, 3, 4, 7, 6, 5]
-        b = [1, 3, 4, 4, 5, 6, 7, 8]
-        sort.selectionSort(a)
-        self.assertEqual(a, b)
+        sort.selectionSort(self.input)
+        self.assertEqual(self.correct, self.input)
 
     def test_insertion_sort(self):
-        a = [8, 1, 4, 3, 4, 7, 6, 5]
-        b = [1, 3, 4, 4, 5, 6, 7, 8]
-        sort.insertionSort(a)
-        self.assertEqual(a, b)
+        sort.insertionSort(self.input)
+        self.assertEqual(self.correct, self.input)
+
+    def test_merge_sort(self):
+        self.output = sort.mergeSort(self.input)
+        self.assertEqual(self.correct, self.output)
+
 
 if __name__ == '__main__':
     unittest.main()

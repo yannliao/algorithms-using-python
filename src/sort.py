@@ -70,6 +70,39 @@ def insertionSort(sequence):
         sequence[j + 1] = key
 
 
+def mergeSort(sequence):
+    """
+    Sort the array in ascending order using merge sort
+    """
+    if len(sequence) <= 1:
+        return sequence
+
+    mid = len(sequence) // 2
+    left = mergeSort(sequence[:mid])
+    right = mergeSort(sequence[mid:])
+    result = mergeSeq(left, right)
+    return result
+
+
+def mergeSeq(left, right):
+    """
+    Merge two sorted subsequences into one sorted list
+    """
+    i = j = 0
+    result = []
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+
+    result += left[i:]
+    result += right[j:]
+    return result
+
+
 def mergeSortedLists(listA, listB):
     # merge two sorted lists into one.
     newList = list()
