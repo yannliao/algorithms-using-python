@@ -3,6 +3,8 @@
     A collection of sorting algorithms using python.
 """
 
+from collections import deque
+
 
 def bubbleSort(sequence):
     """
@@ -56,7 +58,7 @@ def selectionSort(sequence):
 
 def insertionSort(sequence):
     """
-        insertion sort: iterte the list from the top to the end and move the
+        insertion sort: iterate the list from the top to the end and move the
         key to the proper place step by step.
         time complexity: O(n^2)
     """
@@ -123,6 +125,46 @@ def quickSort(sequence, left, right):
         pos = partition(sequence, left, right)
         quickSort(sequence, left, pos - 1)
         quickSort(sequence, pos + 1, right)
+
+
+def countingSort(sequence, k):
+    """
+      Sorting array in O(n) time
+    """
+    count = [0 for _ in range(0, k)]
+    bucket = [0] * len(sequence)
+    # for i in range(0, k):
+    #     C[i] = 0
+
+    for ele in sequence:
+        count[ele] += 1
+
+    for i in range(1, k):
+        count[i] += count[i - 1]
+
+    for j in range(len(sequence) - 1, -1, -1):
+        item = sequence[j]
+        bucket[count[item] - 1] = sequence[j]
+        count[item] -= 1
+    return bucket
+
+
+def radixSort(sequence, maxDigits):
+    RADIX = 10
+    placement = 1
+    bucket = [deque() for _ in range(10)]
+
+    for i in range(maxDigits):
+        for ele in sequence:
+            digit = (ele // placement) % RADIX
+            bucket[digit].append(ele)
+        j = 0
+        for bin in bucket:
+            for _ in range(len(bin)):
+                sequence[j] = bin.popleft()
+                j += 1
+
+    placement *= RADIX
 
 
 def mergeSortedLists(listA, listB):

@@ -42,6 +42,14 @@ class TestSortAlgorithms(unittest.TestCase):
         sort.quickSort(self.input, 0, len(self.input) - 1)
         self.assertEqual(self.correct, self.input)
 
+    def test_counting_sort(self):
+        self.output = sort.countingSort(self.input, 10)
+        self.assertEqual(self.correct, self.output)
+
+    def test_radix_sort(self):
+        sort.radixSort(self.input, 2)
+        self.assertEqual(self.correct, self.input)
+
 
 if __name__ == '__main__':
     unittest.main()
