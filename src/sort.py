@@ -188,3 +188,37 @@ def mergeSortedLists(listA, listB):
         b += 1
 
     return newList
+
+
+def _shiftDown(sequence, end, start):
+    l = start * 2 + 1
+    r = start * 2 + 2
+
+    if l <= end and sequence[l] > sequence[start]:
+        largest = l
+    else:
+        largest = start
+
+    if r <= end and sequence[r] > sequence[largest]:
+        largest = r
+
+    if largest != start:
+        sequence[largest], sequence[start] = sequence[start], sequence[largest]
+        _shiftDown(sequence, end, largest)
+
+
+def _buildHeap(sequence):
+    size = len(sequence)
+    for i in range((size - 1) // 2, -1, -1):
+        _shiftDown(sequence, size - 1, i)
+
+
+def heapSort(sequence):
+    """
+        Sorts a sequence in ascending order using the heapsort.
+        time complexity: O(nlogn)
+    """
+    _buildHeap(sequence)
+    for i in range(len(sequence) - 1, 0, -1):
+        sequence[0], sequence[i] = sequence[i], sequence[0]
+        _shiftDown(sequence, i - 1, 0)

@@ -33,12 +33,13 @@ class Heap():
     def _shiftDown(self, index):
         l = self._left(index)
         r = self._right(index)
-        if l <= self._heap_size and self._data[l] > self._data[index]:
+        if l < self._heap_size and self._data[l] > self._data[index]:
             largest = l
-        elif r <= self._heap_size and self._data[r] > self._data[index]:
-            largest = r
         else:
             largest = index
+
+        if r < self._heap_size asnd self._data[r] > self._data[largest]:
+            largest = r
 
         if largest != index:
             self._data[index], self._data[largest] = \

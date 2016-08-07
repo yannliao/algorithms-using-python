@@ -50,6 +50,10 @@ class TestSortAlgorithms(unittest.TestCase):
         sort.radixSort(self.input, 2)
         self.assertEqual(self.correct, self.input)
 
+    def test_heap_sort(self):
+        sort.heapSort(self.input)
+        self.assertEqual(self.correct, self.input)
+
 
 if __name__ == '__main__':
     unittest.main()
