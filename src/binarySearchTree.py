@@ -12,8 +12,17 @@ class BinarySearchTree:
     def __len__(self):
         return self.size
 
+    def __iter__(self):
+        return self.root.__iter__()
+
     def __contains__(self, key):
         return self._search(self._root, key) is not None
+
+    def __setitem__(self, key, value):
+        self.insertion(key, value)
+
+    def __getitem__(self, key, value):
+        return self._search(self.root, key)
 
     def _search(self, node, key):
         while node is not None and node.key != key:
@@ -24,7 +33,7 @@ class BinarySearchTree:
         return node
 
     def _tree_search(self, node, key):
-        if node.key == Node or node.key == key:
+        if node.key is None or node.key == key:
             return node
         elif node.key < key:
             self._tree_search(node.left, key)
@@ -60,22 +69,26 @@ class BinarySearchTree:
         return flag
 
     def insertion(self, key, value):
-        node = Node(key, value)
         y = None
         x = self.root
-        while x is not None:
+        while x is not None and x.key != key:
             y = x
             if key < x.key:
                 x = x.left
             else:
                 x = x.right
-        node.parent = y
-        if key < y.key:
-            y.left = node
+
+        if x is not None:
+            x.value = value
+        elif key < y.key:
+            y.left = Node(key, value, parent=y)
+            self.size += 1
         else:
-            y.right = node
+            y.right = Node(key, value, parent=y)
+            self.size += 1
 
     def transplant(self, old, new):
+        # only change the relationship with the parent node.
         if old.parent is None:
             self.root = new
         elif old == old.parent.left:
@@ -88,6 +101,7 @@ class BinarySearchTree:
     def deletion(self, key):
         node = self._search(self.root, key)
         assert node is not None, 'key is not in the tree'
+
         if node.left is None:
             self.transplant(node, node.right)
         elif node.right is None:
@@ -105,8 +119,9 @@ class BinarySearchTree:
 
 
 class Node:
-    def __init__(self, key, value):
+    def __init__(self, key, value, left=None, right=None, parent=None):
         self.key = key
         self.value = value
-        self.left = None
-        self.right = None
+        self.left = left
+        self.right = right
+        self.parent = parent
