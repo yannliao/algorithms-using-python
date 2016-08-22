@@ -26,12 +26,28 @@ class AvlTree(BinarySearchTree):
             x.value = value
         elif key < y.key:
             y.left = Node(key, value, parent=y)
-            self._updateBalance(y.left)
+            self._insertionUpdateBalance(y.left)
             self.size += 1
         else:
             y.right = Node(key, value, parent=y)
-            self._updateBalance(y.right)
+            self._insertionUpdateBalance(y.right)
             self.size += 1
+
+    def _deleteUpdateBalance(self, node):
+        while node is not None:
+            # if node.balanceFactor > 1 or node.balanceFactor < -1:
+            #     self._rebalance(node)
+            #     return
+            if node.parent is not None:
+                if node == node.parent.left:
+                    node.parent.balanceFactor -= 1
+                elif node == node.parent.right:
+                    node.parent.balanceFactor += 1
+
+                if node.parent.balanceFactor == 0:
+                    node = node.parent
+                else:
+                    node = None
 
     def _rebalance(self, node):
         # node is the root of the unbalanced subtree.
@@ -49,7 +65,7 @@ class AvlTree(BinarySearchTree):
                 self._rotateRight(node)
         return node
 
-    def _updateBalance(self, node):
+    def _insertionUpdateBalance(self, node):
         while node is not None:
             if node.balanceFactor > 1 or node.balanceFactor < -1:
                 self._rebalance(node)
@@ -66,10 +82,49 @@ class AvlTree(BinarySearchTree):
                     node = None
 
     def _rotateLeft(self, node):
-        pass
+        newRoot = node.right
+        node.right = newRoot.left
+        if node.right is not None:
+            node.right.parent = node
+        newRoot.parent = node.parent
+
+        if node is self.root:
+            self.root = newRoot
+        else:
+            if node == node.parent.left:
+                node.parent.left = newRoot
+            else:
+                node.parent.right = newRoot
+        newRoot.left = node
+        node.parent = newRoot
+
+        node.balanceFactor = node.balanceFactor + 1 - \
+            min(newRoot.balanceFactor, 0)
+        newRoot.balanceFactor = newRoot.balanceFactor + 1 + \
+            max(node.balanceFactor, 0)
+        return newRoot
 
     def _rotateRight(self, node):
-        pass
+        newRoot = node.left
+        node.left = newRoot.right
+        if node.left is not None:
+            node.left.parent = node
+        newRoot.parent = node.parent
+
+        if node is self.root:
+            self.root = newRoot
+        else:
+            if node == node.parent.left:
+                node.parent.left = newRoot
+            else:
+                node.parent.right = newRoot
+
+        newRoot.right = node
+        node.parent = newRoot
+        node.balanceFactor = node.balanceFactor - 1 - \
+            max(newRoot.balanceFactor, 0)
+        newRoot.balanceFactor = newRoot.balanceFactor - 1 + \
+            min(node.balanceFactor, 0)
 
 
 class Node(TreeNode):
