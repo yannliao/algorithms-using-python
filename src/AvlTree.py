@@ -33,11 +33,56 @@ class AvlTree(BinarySearchTree):
             self._insertionUpdateBalance(y.right)
             self.size += 1
 
+    def transplant(self, old, new):
+        # only change the relationship with the parent node.
+        if old.parent is None:
+            self.root = new
+        elif old == old.parent.left:
+            old.parent.left = new
+        else:
+            old.parent.right = new
+        if new is not None:
+            new.parent = old.parent
+
+    def deletion(self, key):
+        node = self._search(self.root, key)
+        assert node is not None, 'key is not in the tree'
+
+        if node.left is None:
+            self.transplant(node, node.right)
+            self._deleteUpdateBalance(node)
+        elif node.right is None:
+            self.transplant(node, node.left)
+            self._deleteUpdateBalance(node)
+        elif:
+            successor = self.minimum(node.right)
+            if node != successor.parent:
+                tmp = successor.right
+                oldBalance = successor.balanceFactor
+                self.transplant(successor, successor.right)
+                successor.right = node.right
+                successor.right.parent = successor
+
+                self.transplant(node, successor)
+                successor.left = node.left
+                successor.left.parent = successor
+
+                successor.balanceFactor = node.balanceFactor
+                tmp.balanceFactor = oldBalance + 1
+                self._deleteUpdateBalance(tmp)
+
+            else:
+                self.transplant(node, successor)
+                successor.left = node.left
+                successor.left.parent = successor
+
+                successor.balanceFactor = node.balanceFactor + 1
+                self._deleteUpdateBalance(successor)
+
     def _deleteUpdateBalance(self, node):
         while node is not None:
-            # if node.balanceFactor > 1 or node.balanceFactor < -1:
-            #     self._rebalance(node)
-            #     return
+            if node.balanceFactor > 1 or node.balanceFactor < -1:
+                self._rebalance(node)
             if node.parent is not None:
                 if node == node.parent.left:
                     node.parent.balanceFactor -= 1
@@ -54,16 +99,16 @@ class AvlTree(BinarySearchTree):
         if node.balanceFactor < 0:
             if node.balanceFactor > 0:
                 self._rotateRight(node.right)
-                self._rotateLeft(node)
+                newRoot = self._rotateLeft(node)
             else:
-                self._rotateLeft(node)
+                newRoot = self._rotateLeft(node)
         elif node.balanceFactor > 0:
             if node.balanceFactor < 0:
                 self._rotateLeft(node.left)
-                self._rotateRight(node)
+                newRoot = self._rotateRight(node)
             else:
-                self._rotateRight(node)
-        return node
+                newRoot = self._rotateRight(node)
+        return newRoot
 
     def _insertionUpdateBalance(self, node):
         while node is not None:
